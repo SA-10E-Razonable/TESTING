@@ -1,35 +1,32 @@
 from pyscript import display, document
 
-# This function runs when the "Sign up!" button is clicked
 def intrams_checker(e):
     # Clear previous output messages and images
     document.getElementById('output').innerHTML = ' '
     document.getElementById('image').innerHTML = ' '
 
-    # Get the selected registration radio button (Yes/No)
-    registration_el = document.querySelector(
-        'input[name="registration"]:checked'
-    )
+    # Get the selected registration and clearance radio buttons
+    registration_el = document.querySelector('input[name="registration"]:checked')
+    clearance_el = document.querySelector('input[name="clearance"]:checked')
 
-    # Get the selected medical clearance radio button (Yes/No)
-    clearance_el = document.querySelector(
-        'input[name="clearance"]:checked'
-    )
+    # Get the grade level and section dropdown elements
+    grade_el = document.getElementById('level')
+    section_el = document.getElementById('section')
 
-    # Get the values of the selected options
-    registration = registration_el.value   # "registered" or "not_registered"
-    clearance = clearance_el.value         # "cleared" or "not_cleared"
-
-    # Get the grade level from the dropdown (convert to number)
-    grade_level = int(document.getElementById('level').value)
-
-    # Get the section from the dropdown (emerald, ruby, sapphire, topaz)
-    section = document.getElementById('section').value
-
-    # If the user did not fill up everything, show an error
+    # Check that all required fields are filled
     required_fields = [registration_el, clearance_el, grade_el.value, section_el.value]
     if any(field is None or field == '' for field in required_fields):
         display("❌ Please answer all the questions before proceeding.", target="output")
+        return
+
+    # Get values
+    registration = registration_el.value        # "registered" or "not_registered"
+    clearance = clearance_el.value              # "cleared" or "not_cleared"
+    grade_level = int(grade_el.value)
+    section = section_el.value
+
+    # Do nothing if both radio buttons have the same value (both Yes or both No)
+    if registration == clearance:
         return
 
     # Check if the user is eligible for Intramurals
@@ -89,6 +86,7 @@ def intrams_checker(e):
         document.getElementById("image").innerHTML = (
             "<img src='Yellow.png' width='300'>"
         )
+
 
 
 
