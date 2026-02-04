@@ -16,19 +16,16 @@ def intrams_checker(e):
     )
 
     # Get the grade level and section from the dropdowns
-    grade_value = document.getElementById('level').value
+    grade_level = document.getElementById('level').value
     section = document.getElementById('section').value
 
-    # If any question or dropdown is blank, show an error first
-    if not registration_el or not clearance_el or grade_value == '' or section == '':
+    # If any question or dropdown is blank, show an error
+    if not registration_el or not clearance_el or grade_level == '' or section == '':
         display(
             "❌ Please answer all the questions and select your grade and section before proceeding.",
             target="output"
         )
         return  # Stop the function here if any question or dropdown is unanswered
-
-    # Converts grade to int
-    grade_level = int(grade_value)
 
     # Get the values of the selected options
     registration = registration_el.value  # "registered" or "not_registered"
@@ -75,5 +72,7 @@ def intrams_checker(e):
             target='output'
         )
         document.getElementById("image").innerHTML = "<img src='Yellow.png' width='300'>"
+
+
 
 
